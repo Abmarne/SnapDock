@@ -83,26 +83,22 @@ I’d love help fixing these!
 
 ## Screenshots
 
+## Screenshots
+
 <h3 align="center">Screenshots</h3>
 
-<div align="center" style="max-width:900px; margin: 0 auto;">
-  <figure style="margin:0 0 16px;">
-    <img src="assets/screenshot_1.png"
-         alt="Live preview in light theme"
-         style="width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.12);" />
-    <figcaption style="color:#666; font-size:14px; margin-top:8px;">
-      **Live preview:** Light theme
-    </figcaption>
-  </figure>
+<div align="center">
+    <img src="assets/screenshot_1.png" alt="Live preview in light theme" width="700" />
+    <br/>
+    **Live preview:** Light theme
+</div>
 
-  <figure style="margin:0;">
-    <img src="assets/screenshot_2.png"
-         alt="Editor view in dark theme"
-         style="width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.12);" />
-    <figcaption style="color:#666; font-size:14px; margin-top:8px;">
-      **Editor view:** Dark theme
-    </figcaption>
-  </figure>
+<br/>
+
+<div align="center">
+    <img src="assets/screenshot_2.png" alt="Editor view in dark theme" width="700" />
+    <br/>
+    **Editor view:** Dark theme
 </div>
 
 ---
@@ -132,7 +128,7 @@ This is open source, and I’d be thrilled if you contribute:
 - **Issues:** Report bugs or suggest improvements
 - **Discord:** Join our community for feedback & collaboration
 
-- 💬 Discord: https://discord.gg/wGzcTwSc
+- [💬 Discord](https://discord.gg/4RGzagyt7C)
 
 ---
 
@@ -142,17 +138,17 @@ MIT License — free to use, modify, and distribute. Please keep this notice.
 
 ---
 
-## Stay connected
+## 🫂 Stay Connected
 
-- 💬 **Discord:** Join the community or find me at User ID: `768663462544408606`
-- **GitHub:** https://github.com/ZetoLabs/SnapDock (Placeholder—new personal account coming soon!)
-- **Facebook:** https://www.facebook.com/zachary.ford.944654
+- [**Join me on Discord**](https://discord.gg/4RGzagyt7C)
+- [**find this project on GitHub**](https://github.com/ZFordDev/SnapDock)
+- [**Connect on Facebook**](https://www.facebook.com/zachary.ford.944654)
 
 ---
 
-## Support
+## ❤️ Support
 
 SnapDock is free and open source. If it helps you, consider supporting the creator via ZetoLabs:
-- ❤️ Ko‑Fi: https://ko-fi.com/zetalabs
+- [**Ko‑Fi**](https://ko-fi.com/zetolabs)
 
 ---
