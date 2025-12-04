@@ -1,0 +1,48 @@
+{
+  "name": "snapdock",
+  "version": "1.0.0",
+  "description": "A powerful desktop markdown editor.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --dir",
+    "pack": "electron-builder --win --linux",
+    "build": "electron-builder"
+  },
+  "keywords": [
+    "markdown",
+    "editor",
+    "electron"
+  ],
+  "author": "Zachary Ford",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.ZetoLabs.snapdock",
+    "productName": "SnapDock",
+    "copyright": "Copyright © 2025 ${author}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "scripts.js",
+      "styles.css",
+      "node_modules/",
+      "markdown-it-master/",
+      "version.json",
+      "assets/icon.ico"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": "nsis"
+    }
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0"
+  }
+}

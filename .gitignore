@@ -1,0 +1,23 @@
+# Dependencies
+/node_modules
+/package-lock.json
+
+# Build and Distribution
+/dist
+/out
+/release
+*.asar
+*.asar.unpacked
+
+# Electron-Builder Cache
+.cache/
+
+# Logs and Debug
+npm-debug.log*
+.DS_Store
+.vscode/
+
+# Ignore files created during the build/package process
+electron-builder-cache/
+/builder-debug.yml
+/builder-effective-config.yaml
