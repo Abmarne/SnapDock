@@ -28,13 +28,19 @@ If you think SnapDock is cool, please help me make it better!
 ```
 snapdock/
 ├── assets/              # Icons, images
-├── dist/                # Build output
+├── dist/                # Build output (ignored in git)
 ├── markdown-it-master/  # Markdown parser (customized, slated for removal)
+├── node_modules/        # Dependencies (ignored in git)
 ├── src/                 # Source code
-│   ├── scripts.js       # Core logic
+│   ├── scripts.js       # Core logic (being phased into Rust handler)
 │   └── styles.css       # Styling
+├── .gitignore           # Git ignore rules
 ├── index.html           # Main app file
-├── README.md            # This file!
+├── LICENSE              # License file
+├── main.js              # Electron window bootstrapper
+├── package.json         # Project metadata
+├── package-lock.json    # Dependency lockfile (ignored in git)
+├── README.md            # Project documentation
 └── version.json         # Version tracking
 ```
 

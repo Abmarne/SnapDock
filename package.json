@@ -30,8 +30,8 @@
     "files": [
       "main.js",
       "index.html",
-      "scripts.js",
-      "styles.css",
+      "src/scripts.js",
+      "src/styles.css",
       "node_modules/",
       "markdown-it-master/",
       "version.json",
