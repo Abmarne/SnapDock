@@ -1,7 +1,6 @@
 export function initInitialState({ editor }) {
   if (!editor) return;
 
-  // Provide a default starter text if empty
   if (!editor.value.trim()) {
     editor.value = "# SnapDock Start typing...";
   }

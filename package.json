@@ -1,8 +1,10 @@
 {
   "name": "snapdock",
-  "version": "1.9.0",
-  "build": "Beta",            
-  "releaseDate": "2025-12-10",   
+  "version": "2.0.0",
+  "stage": "Beta",
+  "releaseDate": "2025-12-10",
+  "description": "SnapDock — lightweight markdown editor with file tree, recent files, and dynamic preview.",
+  "author": "ZetoLabs",
   "update": {
     "repo": "https://github.com/ZFordDev/SnapDock",
     "assets": {
@@ -15,14 +17,33 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "node build.js",
+    "bundle": "node build.js", 
+    "pack": "electron-packager . SnapDock --platform=win32 --arch=x64 --out=dist --icon=assets/icon.ico",
+    "build": "npm run bundle && electron-builder",
     "lint": "echo \"Add ESLint later\""
   },
   "dependencies": {
-    "electron": "^31.0.0",
     "markdown-it": "^14.1.0"
   },
   "devDependencies": {
-    "esbuild": "^0.27.1"
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "esbuild": "^0.27.1",
+    "rcedit": "^5.0.2"
+  },
+  "build": {
+    "appId": "com.zetolabs.snapdock",
+    "productName": "SnapDock",
+    "files": [
+      "dist/**/*",
+      "index.html",
+      "src/styles.css",
+      "assets/**/*",
+      "main.js",
+      "src/preload.js"
+    ],
+    "win": {
+      "icon": "assets/icon.ico"
+    }
   }
 }

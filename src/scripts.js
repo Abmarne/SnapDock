@@ -5,9 +5,6 @@ import { loadContent, saveCurrentFile } from "./modules/file/operations.js";
 import { initAutosave } from "./modules/file/autosave.js";
 import { renderRecentFiles, saveToRecentFiles } from "./modules/file/recent.js";
 
-
-
-
 function byId(id) { return document.getElementById(id); }
 
 const editor = byId("markdownInputMain");
@@ -20,8 +17,6 @@ const fileTreeList = byId("fileTreeList");
 const sidebar = document.getElementById("sidebar");
 const resizer = document.getElementById("resizer");
 
-
-// Init
 initInitialState({ editor });
 initTheme({ toggleBtn: themeToggleBtn });
 initViewModeToggle({ toggleBtn: previewToggleBtn, editor, preview });
@@ -30,34 +25,39 @@ renderRecentFiles(recentList, editor);
 renderFileTree(fileTreeList);
 setVersionTag();
 
-
-// Version tag
 async function setVersionTag() {
   const info = await window.electronAPI.getVersion();
   const versionTag = document.getElementById("versionTag");
   versionTag.textContent = `SnapDock ${info.version} (${info.build}) — ${info.date}`;
 }
 
+function setFilenameDisplay(filePath) {
+  const parts = filePath.split(/[\\/]/); 
+  const base = parts[parts.length - 1]; 
+  const name = base.replace(/\.[^/.]+$/, "");
+  document.getElementById("filenameDisplay").textContent = name;
+}
 
-// Wire buttons (Open/Save stubs for now)
 document.getElementById("newFileBtn")?.addEventListener("click", () => {
   editor.value = "";
   preview.innerHTML = "";
+  document.getElementById("filenameDisplay").textContent = "Untitled";
 });
 
 document.getElementById("saveFileBtnTop")?.addEventListener("click", () => {
   saveCurrentFile(editor);
 });
-// After opening a file:
+
 document.getElementById("openFileBtnTop")?.addEventListener("click", async () => {
-  const result = await loadContent(editor); // should return { content, filePath }
+  const result = await loadContent(editor); 
   if (result && result.filePath) {
     saveToRecentFiles(result.filePath);
     renderRecentFiles(recentList, editor);
+    setFilenameDisplay(result.filePath); 
   }
 });
 
-document.getElementById("openFolderBtnTop").addEventListener("click", async () => {
+document.getElementById("openFolderBtnTop")?.addEventListener("click", async () => {
   const folderPath = await window.electronAPI.openFolder();
   if (folderPath) {
     fileTreeList.innerHTML = "";
@@ -127,7 +127,7 @@ document.getElementById("update")?.addEventListener("click", async () => {
   try {
     const result = await window.electronAPI.updateApp();
     alert(result);
-    location.reload(); // reload app with new files
+    location.reload(); 
   } catch (err) {
     alert("Update failed:\n" + err);
   }

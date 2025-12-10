@@ -11,7 +11,7 @@ export async function loadContent(editor) {
   const result = await window.electronAPI.openFile();
   if (result !== null) {
     editor.value = result.content;
-    return result; // return both content + filePath
+    return result;
   }
   return null;
 }

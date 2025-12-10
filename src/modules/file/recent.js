@@ -12,10 +12,9 @@ export function getRecent() {
 }
 
 function getDisplayName(filePath) {
-  // Grab just the filename from the path
-  const parts = filePath.split(/[\\/]/); // split on / or \
-  const base = parts[parts.length - 1];  // last segment
-  // Remove extension if present
+
+  const parts = filePath.split(/[\\/]/);
+  const base = parts[parts.length - 1];
   return base.replace(/\.[^/.]+$/, "");
 }
 
@@ -25,8 +24,8 @@ export function renderRecentFiles(container, editor) {
   container.innerHTML = "";
   recent.forEach(filePath => {
     const li = document.createElement("li");
-    li.textContent = getDisplayName(filePath);    // show clean name
-    li.dataset.fullPath = filePath;               // keep full path for opening
+    li.textContent = getDisplayName(filePath);   
+    li.dataset.fullPath = filePath;      
     li.addEventListener("click", async () => {
       const content = await window.electronAPI.openRecentFile(filePath);
       if (content !== null) editor.value = content;

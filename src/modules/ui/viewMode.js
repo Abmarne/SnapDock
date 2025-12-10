@@ -3,7 +3,6 @@ import { renderMarkdown } from "../markdown.js";
 export function initViewModeToggle({ toggleBtn, editor, preview }) {
   if (!toggleBtn || !editor || !preview) return;
 
-  // Default state: editor visible, preview hidden
   preview.classList.add("hidden");
   editor.style.display = "block";
   toggleBtn.textContent = "Show Preview";
@@ -27,7 +26,6 @@ export function initViewModeToggle({ toggleBtn, editor, preview }) {
     }
   });
 
-  // Optional live render while typing
   editor.addEventListener("input", () => {
     if (!preview.classList.contains("hidden")) {
       updatePreview();

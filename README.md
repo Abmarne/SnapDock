@@ -1,127 +1,77 @@
 <h1 align="center">
-  <img src="assets/logo.png" alt="SnapDock Icon" width="150" style="border-radius:12px;" /><br/>
+  <img src="assets/logo.png" alt="SnapDock Icon" width="150" style="border-radius:12px;" /><br/>
 </h1>
 
 <p align="center">
-   SnapDock — Lightweight Markdown Editor & Viewer <br/>
-  Built by <strong>Zachary Ford</strong>
+   SnapDock — Lightweight Markdown Editor & Viewer <br/>
+   Built by <strong>Zachary Ford</strong>
 </p>
 
 ---
 
-## About this project
+## Release status
 
-Hi! I’m a self‑taught developer, and SnapDock is one of the first real apps I’ve built.
-It started as a personal experiment to learn Electron, but it grew into something I think is genuinely useful: a fast, lightweight alternative to heavier markdown tools like Obsidian or VS Code.
-
-I know it’s not perfect — there are bugs and missing features — but I’m sharing it here because:
-- **Build in public:** I want to keep learning by shipping real changes.
-- **Collaborate:** I believe community input makes projects stronger.
-- **Career growth:** I’m actively looking for work, and showing progress helps me grow my craft.
-
-If you think SnapDock is cool, please help me make it better!
+**Current build:** Beta 2.0.0  
+This is the second major beta release, featuring a redesigned UI, dynamic update logic, and packaging improvements.  
+Next milestone: **RC 2.0.0** (planned January 2026).
 
 ---
 
-## Project structure
+## 📥 Download & Install
 
-```
-snapdock/
-├── assets/              # Icons, images
-├── dist/                # Build output (ignored in git)
-├── markdown-it-master/  # Markdown parser (customized, slated for removal)
-├── node_modules/        # Dependencies (ignored in git)
-├── src/                 # Source code
-│   ├── scripts.js       # Core logic (being phased into Rust handler)
-│   └── styles.css       # Styling
-├── .gitignore           # Git ignore rules
-├── index.html           # Main app file
-├── LICENSE              # License file
-├── main.js              # Electron window bootstrapper
-├── package.json         # Project metadata
-├── package-lock.json    # Dependency lockfile (ignored in git)
-├── README.md            # Project documentation
-└── version.json         # Version tracking
-```
+SnapDock is now packaged as a full desktop app:
+
+- **Ko‑Fi (support the project):** [Download for $5](https://ko-fi.com/zetolabs)  
+- **GitHub Releases (free builds):** Coming soon — packaged `.exe` and `.AppImage` will be listed here.  
+
+> Developers can still build from source if they prefer, but most users should grab the packaged app.
 
 ---
 
-## Key features (Beta)
-
-- **Live preview:** Real‑time markdown rendering
-- **File navigation:** Open single files or folders
-- **Themes:** Toggle and customize light/dark
-
----
-
-## Build process
-
-Run SnapDock with these scripts (via `package.json`):
-
-```json
-{
-  "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --dir",
-    "pack": "electron-builder --win --linux",
-    "build": "electron-builder"
-  }
-}
-```
-
-**Build configuration**
-- **Electron:** 28.0.0
-- **Platforms:** Windows (NSIS installer), Linux (AppImage)
-- **Icon:** `assets/icon.ico`
-
----
-
-## Known issues (Beta)
-
-I’d love help fixing these!
-1. **PDF export:** Prints blank page.
-2. **File tree:** Selecting items may override unsaved changes.
-3. **Saving:** Per‑page only; no workspace‑level save.
-4. **Preview gaps:** Markdown preview not fully feature‑complete.
-5. **Update logic:** Placeholder; needs real integration.
-
----
-
-## Screenshots
-
+## 🖼️ Screenshots
 
 <h3 align="center">Screenshots</h3>
 
 <div align="center">
-    <img src="assets/Screenshot_1.png" alt="Live preview in light theme" width="700" />
+    <img src="assets/ren_v2_lite.png" alt="Live preview in light theme" width="700" />
     <br/>
-    **Live preview:** Light theme
+    <em>Live preview — Light theme</em>
 </div>
 
 <br/>
 
 <div align="center">
-    <img src="assets/Screenshot_2.png" alt="Editor view in dark theme" width="700" />
+    <img src="assets/v2_dark.png" alt="Editor view in dark theme" width="700" />
     <br/>
-    **Editor view:** Dark theme
+    <em>Editor view — Dark theme</em>
 </div>
+
+<br/>
+
+<div align="center">
+    <img src="assets/OG.png" alt="Filename header editing" width="700" />
+    <br/>
+    <em>The Original V1 design</em>
+</div>
+
+---
+
+## Known issues (Beta 2.0.0)
+
+1. **PDF export:** Prints blank page.
+2. **File tree:** Selecting items may override unsaved changes.
+3. **Saving:** Per‑page only; no workspace‑level save.
+4. **Preview gaps:** Markdown preview not fully feature‑complete.
+5. **Update logic:** Works for core assets, but needs broader integration.
 
 ---
 
 ## Roadmap
 
-- **Parser cleanup:** Remove `markdown-it-master` (customized edition) and replace with a maintainable approach.
-  - **Option A:** Upstream `markdown-it` with clean renderer overrides and plugins.
-  - **Option B:** Keep a vendored fork in `vendor/markdown-it` temporarily, with documented deltas.
-- **Rust integration:** Introduce Rust for robustness and performance.
-  - **Phase 1:** Implement reliable print‑to‑PDF in Rust (WASM/Neon) to replace the old HTML‑to‑PDF path.
-  - **Phase 2:** Explore Rust‑based markdown parsing (e.g., pulldown‑cmark) as a drop‑in for preview.
-- **Modularization:** Split `scripts.js` into focused modules.
-  - **Preview:** Rendering + theme
-  - **Editor:** Input, autosave
-  - **Files:** File/folder operations
-  - **Tabs:** Tab management
-- **Stability:** Improve state management to protect unsaved changes.
+- **RC milestone:** Promote Beta 2.0.0 to RC once stability is confirmed.
+- **Parser cleanup:** Remove `markdown-it-master` and replace with upstream plugins.
+- **Rust integration:** Introduce Rust for PDF export and markdown parsing.
+- **Modularization:** Split `scripts.js` into preview/editor/files/tabs modules.
 - **Collaboration:** Add issue templates, labels, and contribution guidelines.
 
 ---
@@ -145,8 +95,8 @@ MIT License — free to use, modify, and distribute. Please keep this notice.
 
 ## 🫂 Stay Connected
 
-- [**Join me on Discord**](https://discord.gg/4RGzagyt7C)
-- [**find this project on GitHub**](https://github.com/ZFordDev/SnapDock)
+- [**Join me on Discord**](https://discord.gg/4RGzagyt7C)  
+- [**Find this project on GitHub**](https://github.com/ZFordDev/SnapDock)  
 - [**Connect on Facebook**](https://www.facebook.com/zachary.ford.944654)
 
 ---
@@ -155,5 +105,3 @@ MIT License — free to use, modify, and distribute. Please keep this notice.
 
 SnapDock is free and open source. If it helps you, consider supporting the creator via ZetoLabs:
 - [**Ko‑Fi**](https://ko-fi.com/zetolabs)
-
----

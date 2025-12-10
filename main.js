@@ -36,7 +36,7 @@ ipcMain.handle("dialog:openFolder", async () => {
     properties: ["openDirectory"]
   });
   if (canceled || filePaths.length === 0) return null;
-  return filePaths[0]; // return the chosen folder path
+  return filePaths[0]; 
 });
 
 ipcMain.handle("dialog:saveFile", async (event, content) => {
@@ -128,6 +128,6 @@ ipcMain.handle("dialog:updateApp", async () => {
 
 
 ipcMain.handle("dialog:getVersion", async () => {
-  return { version: pkg.version, build: pkg.build, date: pkg.releaseDate };
+  return { version: pkg.version, stage: pkg.build, date: pkg.releaseDate };
 });
 
