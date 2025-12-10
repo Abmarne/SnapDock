@@ -1,31 +1,114 @@
-// main.js
+const { app, BrowserWindow, dialog, ipcMain } = require("electron");
+const fs = require("fs");
+const path = require("path");
+const https = require("https");
+const { exec } = require("child_process");
+const pkg = require("./package.json");
 
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
 
 function createWindow() {
-    const mainWindow = new BrowserWindow({
-        width: 1000,
-        height: 700,
-        minWidth: 800,
-        minHeight: 600,
-        webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: false,
-            contextIsolation: true
-        }
-    });
-    mainWindow.loadFile('index.html');
+  const win = new BrowserWindow({
+    width: 1100,
+    height: 800,
+    webPreferences: {
+      preload: path.join(__dirname, "src", "preload.js"),
+    },
+  });
+  win.loadFile("index.html");
 }
 
-app.whenReady().then(() => {
-    createWindow();
+app.whenReady().then(createWindow);
 
-    app.on('activate', function () {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow();
+ipcMain.handle("dialog:openFile", async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ["openFile"],
+    filters: [{ name: "Markdown", extensions: ["md"] }],
+  });
+  if (canceled || filePaths.length === 0) return null;
+
+  const filePath = filePaths[0];
+  const content = fs.readFileSync(filePath, "utf-8");
+  return { content, filePath };
+});
+
+ipcMain.handle("dialog:openFolder", async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ["openDirectory"]
+  });
+  if (canceled || filePaths.length === 0) return null;
+  return filePaths[0]; // return the chosen folder path
+});
+
+ipcMain.handle("dialog:saveFile", async (event, content) => {
+  const { canceled, filePath } = await dialog.showSaveDialog({
+    filters: [{ name: "Markdown", extensions: ["md"] }],
+  });
+  if (canceled || !filePath) return false;
+  fs.writeFileSync(filePath, content, "utf-8");
+  return true;
+});
+
+ipcMain.handle("dialog:openRecentFile", async (event, filePath) => {
+  try {
+    return fs.readFileSync(filePath, "utf-8");
+  } catch (err) {
+    console.error("Failed to open recent file:", err);
+    return null;
+  }
+});
+
+ipcMain.handle("dialog:openHelp", async () => {
+  const fs = require("fs");
+  const path = require("path");
+  try {
+    const helpPath = path.join(__dirname, "assets", "resources", "docs", "user_guide.md");
+    return fs.readFileSync(helpPath, "utf-8");
+  } catch (err) {
+    console.error("Failed to load help doc:", err);
+    return "# Help file not found";
+  }
+});
+
+ipcMain.handle("dialog:listFiles", async (event, dirPath) => {
+  const fs = require("fs");
+  const path = require("path");
+  try {
+    const files = fs.readdirSync(dirPath, { withFileTypes: true });
+    return files.map(f => ({
+      name: f.name,
+      type: f.isDirectory() ? "folder" : "file",
+      fullPath: path.join(dirPath, f.name)
+    }));
+  } catch (err) {
+    console.error("Failed to list files:", err);
+    return [];
+  }
+});
+
+
+
+ipcMain.handle("dialog:updateApp", async () => {
+  const files = [
+    { url: pkg.update.assets.bundle, local: path.join(__dirname, "dist", "bundle.js") },
+    { url: pkg.update.assets.html, local: path.join(__dirname, "index.html") },
+    { url: pkg.update.assets.css, local: path.join(__dirname, "src", "styles.css") }
+  ];
+
+  for (const f of files) {
+    await new Promise((resolve, reject) => {
+      const file = fs.createWriteStream(f.local);
+      https.get(f.url, res => {
+        res.pipe(file);
+        file.on("finish", () => file.close(resolve));
+      }).on("error", reject);
     });
+  }
+
+  return "Update complete";
 });
 
-app.on('window-all-closed', function () {
-    if (process.platform !== 'darwin') app.quit();
+
+ipcMain.handle("dialog:getVersion", async () => {
+  return { version: pkg.version, build: pkg.build, date: pkg.releaseDate };
 });
+

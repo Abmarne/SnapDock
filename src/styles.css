@@ -1,509 +1,140 @@
-/*======================================================================
-  1️⃣  Theme – light / dark (variables)
-======================================================================*/
-:root {
-    /* Light mode colours */
-    --bg-main: #f5f5f5;
-    --fg-main: #333;
-    --bg-header: #222;
-    --bg-footer: #222;
-    --bg-sidebar: #eee;
-    --bg-editor: #fff;
-    --border-col: #ccc;
-
-    /* Dark mode overrides – applied when .dark-mode is on <body> */
-    --bg-main-dark: #1e1e1e;
-    --fg-main-dark: #ddd;
-    --bg-header-dark: #111;
-    --bg-footer-dark: #111;
-    --bg-sidebar-dark: #2a2a2a;
-    --bg-editor-dark: #2e2e2e;
-    --border-col-dark: #555;
-
-    /* Buttons */
-    --btn-bg: #0078d4;
-    --btn-fg: #fff;
-    --btn-hover: #005fa3;
-}
-
-/* Dark‑mode – override variables only */
-body.dark-mode {
-    --bg-main: var(--bg-main-dark);
-    --fg-main: var(--fg-main-dark);
-    --bg-header: var(--bg-header-dark);
-    --bg-footer: var(--bg-footer-dark);
-    --bg-sidebar: var(--bg-sidebar-dark);
-    --bg-editor: var(--bg-editor-dark);
-    --border-col: var(--border-col-dark);
-
-    /* Buttons in dark mode */
-    --btn-bg: #444;
-    --btn-fg: #eee;
-    --btn-hover: #666;
-}
-
-/*======================================================================
-  2️⃣  Global resets
-======================================================================*/
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/*======================================================================
-  3️⃣  Body & layout
-======================================================================*/
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--fg-main);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-}
-
-/*======================================================================
-  4️⃣  Header
-======================================================================*/
-header {
-    background-color: var(--bg-header);
-    color: #fff;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    font-size: 1.5rem;
-}
-
-nav button {
-    margin-left: .5rem;
-}
-
-/*======================================================================
-  5️⃣  Reusable Button (used everywhere)
-======================================================================*/
-.btn {
-    background-color: var(--btn-bg);
-    color: var(--btn-fg);
-    border: none;
-    padding: .5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: .9rem;
-    transition: bg .3s ease;
-}
-
-.btn:hover {
-    background-color: var(--btn-hover);
-}
-
-/*======================================================================
-  6️⃣  Sidebar
-======================================================================*/
-#sidebar {
-    width: 250px;
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
-    background-color: var(--bg-sidebar);
-    padding: 1rem;
-    border-right: 1px solid var(--border-col);
-}
-
-#sidebar h2 {
-    margin-bottom: .5rem;
-}
-
-#fileList {
-    list-style: none;
-}
-
-#fileList li {
-    padding: .3rem 0;
-    cursor: pointer;
-}
-
-/*======================================================================
-  7️⃣  Editor panel & preview
-======================================================================*/
-#editorPanel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-}
-
-#tabs {
-    display: flex;
-    gap: .5rem;
-    margin-bottom: .5rem;
-}
-
-#editorContainer {
-    position: relative;
-    flex: 1;
-    overflow: hidden;
-}
-
-#markdownEditor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    font-family: 'Consolas', monospace;
-    font-size: 1rem;
-    border: none;
-    resize: none;
-    background: var(--bg-editor);
-    color: var(--fg-main);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-#previewPane {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
-    overflow-y: auto;
-    background-color: var(--bg-editor);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-/* Toggle states */
-#editorContainer.preview-mode #previewPane {
-    opacity: 1;
-    pointer-events: all;
-}
-
-#editorContainer.edit-mode #markdownEditor {
-    opacity: 1;
-    pointer-events: all;
-}
-
-/* Toggle button styles */
-#toggleViewBtn {
-    margin-left: 1rem;
-}
-
-#toggleViewBtn.preview-mode::after {
-    content: "✏️";
-}
-
-#toggleViewBtn.edit-mode::after {
-    content: "👁️";
-}
-
-/*======================================================================
-  8️⃣  Footer
-======================================================================*/
-footer {
-    background-color: var(--bg-footer);
-    color: #ccc;
-    /* slightly lighter than body text */
-    text-align: center;
-    padding: .5rem;
-    font-size: .8rem;
-}
-
-/*======================================================================
-  9️⃣  Filename edit UI
-======================================================================*/
-#filenameWrapper {
-    flex: 1;
-    text-align: center;
-    position: relative;
-}
-
-#filenameDisplay {
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    padding: .25rem .5rem;
-    display: inline-block;
-}
-
-#filenameInput {
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: .25rem .5rem;
-    border: none;
-    border-radius: 4px;
-    display: none;
-    text-align: center;
-    background-color: #fff;
-    color: #333;
-}
-
-body.dark-mode #filenameInput {
-    background-color: var(--bg-editor);
-    color: var(--fg-main);
-}
-
-/*======================================================================
-  🔧 Tabs (editor tabs)
-======================================================================*/
-.tab {
-    background-color: #ddd;
-    padding: .3rem .6rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: .5rem;
-    font-size: .9rem;
-    position: relative;
-}
-
-.tab.active {
-    background-color: var(--btn-bg);
-    color: white;
-}
-
-.closeTab {
-    margin-left: .5rem;
-    color: red;
-    cursor: pointer;
-}
-
-/*======================================================================
-    📁 Folder tree
-======================================================================*/
-
-#folderTree {
-    list-style: none;
-    padding-left: 0.5rem;
-    font-size: 0.85rem;
-    line-height: 1.2;
-}
-
-#folderTree li {
-    margin: 0.2rem 0;
-    padding: 0.2rem 0.4;
-}
-
-.folder {
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0.2rem 0.4rem;
-}
-
-.file {
-    padding-left: 1rem;
-    cursor: pointer;
-    color: #0078d4;
-    padding: 0.2rem 0.4rem;
-}
-
-.file:hover {
-    text-decoration: underline;
-    background-color: #f0f0f0;
-}
-
-body.dark-mode .file:hover {
-    background-color: #333;
-}
-
-body.dark-mode .file {
-    color: #66aaff;
-}
-
-body.dark-mode .folder {
-    color: #ddd;
-}
-
-/* lighter link in dark mode */
-
-/*======================================================================
-  📌 Toolbar (top bar below header)
-======================================================================*/
-#toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg-header);
-    padding: .5rem 1rem;
-}
-
-.toolbar-group {
-    display: flex;
-    gap: .5rem;
-}
-
-/* Toolbar buttons reuse .btn – no need to override styles */
-
-/*======================================================================
-  📦 Footer actions (bottom right)
-======================================================================*/
-#footerActions {
-    position: absolute;
-    right: 1rem;
-    bottom: .5rem;
-    display: flex;
-    gap: .5rem;
-}
-
-.footer-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: #ccc;
-    transition: color .3s ease;
-}
-
-.footer-btn:hover {
-    color: white;
-}
-
-body.dark-mode .footer-btn {
-    color: #aaa;
-}
-
-body.dark-mode .footer-btn:hover {
-    color: #fff;
-}
-
-/*======================================================================
-    Markdown Rendering Styles
-======================================================================*/
-
-#previewPane {
-    padding: 1rem;
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #333;
-    background-color: #fff;
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
-}
-
-body.dark-mode #previewPane {
-    background-color: #1e1e1e;
-    color: #ccc;
-}
-
-/* Headings */
-#previewPane h1,
-#previewPane h2,
-#previewPane h3,
-#previewPane h4,
-#previewPane h5,
-#previewPane h6 {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    border-bottom: 1px solid #ddd;
-}
-
-body.dark-mode #previewPane h1,
-body.dark-mode #previewPane h2,
-body.dark-mode #previewPane h3 {
-    border-color: #444;
-}
-
-/* Paragraphs */
-#previewPane p {
-    margin: 0.5rem 0;
-}
-
-/* Lists */
-#previewPane ul,
-#previewPane ol {
-    margin: 0.5rem 0 0.5rem 1.5rem;
-}
-
-#previewPane li {
-    margin: 0.25rem 0;
-}
-
-/* Blockquotes */
-#previewPane blockquote {
-    margin: 1rem 0;
-    padding-left: 1rem;
-    border-left: 4px solid #0078d4;
-    color: #555;
-    font-style: italic;
-}
-
-body.dark-mode #previewPane blockquote {
-    border-left-color: #66aaff;
-    color: #aaa;
-}
-
-/* Code blocks */
-#previewPane pre {
-    background-color: #f4f4f4;
-    padding: 0.75rem;
-    border-radius: 4px;
-    overflow-x: auto;
-}
-
-body.dark-mode #previewPane pre {
-    background-color: #2e2e2e;
-}
-
-#previewPane code {
-    font-family: 'Courier New', monospace;
-    background-color: #eee;
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-}
-
-body.dark-mode #previewPane code {
-    background-color: #444;
-}
-
-/* Tables */
-#previewPane table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 1rem 0;
-}
-
-#previewPane th,
-#previewPane td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: left;
-}
-
-body.dark-mode #previewPane th,
-body.dark-mode #previewPane td {
-    border-color: #555;
-}
-
-/* Links */
-#previewPane a {
-    color: #0078d4;
-    text-decoration: underline;
-}
-
-body.dark-mode #previewPane a {
-    color: #66aaff;
-}
-
-/* Images */
-#previewPane img {
-    max-width: 100%;
-    height: auto;
-    margin: 0.5rem 0;
-    border-radius: 4px;
+/* Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, sans-serif;
+}
+
+/* Themes */
+body.light-theme {
+  background: #ffffff;
+  color: #111;
+}
+body.dark-theme {
+  background: #0f1216;
+  color: #e6e6e6;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  background: var(--toolbar-bg, #f5f5f5);
+}
+.toolbar .logo {
+  height: 24px;
+}
+.toolbar .version {
+  margin-left: auto;
+  font-size: 0.9em;
+  opacity: 0.6;
+}
+
+/* Workspace */
+.workspace {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 100px);
+}
+.editor-pane, .markdown-preview {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+#markdownInputMain {
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  font-family: monospace;
+  font-size: 1em;
+  background: inherit;
+  color: inherit;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  border-left: 1px solid #ddd;
+  padding: 8px;
+  background: var(--sidebar-bg, #fafafa);
+}
+.sidebar h3 {
+  margin-top: 0;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  cursor: pointer;
+  padding: 4px 0;
+}
+.sidebar li:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding: 8px 16px;
+  background: var(--footer-bg, #f5f5f5);
+}
+.footer-center {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.footer-left button {
+  margin-right: 8px;
+}
+
+.footer-right {
+  margin-left: auto;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  max-width: 600px;
+  max-height: 80%;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.file-tree {
+  width: 250px;
+  border-right: 1px solid #ddd;
+  padding: 8px;
+  background: var(--sidebar-bg, #fafafa);
+  overflow-y: auto;
+}
+.file-tree ul {
+  list-style: none;
+  padding-left: 20px;
+}
+.file-tree li.folder::before { content: "📁 "; }
+.file-tree li.file::before { content: "📄 "; }
+.file-tree li {
+  cursor: pointer;
+  padding: 2px 0;
+}
+.file-tree li:hover {
+  background: #eee;
 }

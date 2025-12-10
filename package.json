@@ -1,48 +1,28 @@
 {
   "name": "snapdock",
-  "version": "1.0.0",
-  "description": "A powerful desktop markdown editor.",
+  "version": "1.9.0",
+  "build": "Beta",            
+  "releaseDate": "2025-12-10",   
+  "update": {
+    "repo": "https://github.com/ZFordDev/SnapDock",
+    "assets": {
+      "bundle": "https://github.com/ZFordDev/SnapDock/releases/latest/download/bundle.js",
+      "html": "https://github.com/ZFordDev/SnapDock/releases/latest/download/index.html",
+      "css": "https://github.com/ZFordDev/SnapDock/releases/latest/download/styles.css"
+    }
+  },
+  "private": true,
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --dir",
-    "pack": "electron-builder --win --linux",
-    "build": "electron-builder"
-  },
-  "keywords": [
-    "markdown",
-    "editor",
-    "electron"
-  ],
-  "author": "Zachary Ford",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^28.0.0",
-    "electron-builder": "^24.9.1"
-  },
-  "build": {
-    "appId": "com.ZetoLabs.snapdock",
-    "productName": "SnapDock",
-    "copyright": "Copyright © 2025 ${author}",
-    "directories": {
-      "output": "dist"
-    },
-    "files": [
-      "main.js",
-      "index.html",
-      "src/scripts.js",
-      "src/styles.css",
-      "node_modules/",
-      "markdown-it-master/",
-      "version.json",
-      "assets/icon.ico"
-    ],
-    "win": {
-      "icon": "assets/icon.ico",
-      "target": "nsis"
-    }
+    "build": "node build.js",
+    "lint": "echo \"Add ESLint later\""
   },
   "dependencies": {
+    "electron": "^31.0.0",
     "markdown-it": "^14.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.1"
   }
 }
