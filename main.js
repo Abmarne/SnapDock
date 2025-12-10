@@ -128,6 +128,6 @@ ipcMain.handle("dialog:updateApp", async () => {
 
 
 ipcMain.handle("dialog:getVersion", async () => {
-  return { version: pkg.version, stage: pkg.build, date: pkg.releaseDate };
+  return { version: pkg.version, stage: pkg.buildStage, date: pkg.releaseDate };
 });
 
