@@ -6,33 +6,40 @@
   <link rel="stylesheet" href="src/styles.css" />
 </head>
 <body class="light-theme">
-  <!-- Toolbar -->
-  <header class="toolbar">
-    <img src="assets/logo.png" alt="SnapDock" class="logo" />
-    <button id="newFileBtn">New</button>
-    <button id="openFileBtnTop">Open File</button>
-    <button id="openFolderBtnTop">Open Folder</button>
-    <button id="saveFileBtnTop">Save</button>
-    <button id="previewToggleBtn">Show Preview</button>
-  </header>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar-left" id="sidebar">
+      <div class="recent-files">
+        <h3>Recent Files</h3>
+        <ul id="recentFilesList"></ul>
+      </div>
+      <div class="file-tree">
+        <h3>Project Files</h3>
+        <ul id="fileTreeList"></ul>
+      </div>
+      <div class="resizer" id="resizer"></div>
+    </aside>
 
   <!-- Main workspace -->
   <main class="workspace">
-    <section class="editor-pane">
-      <textarea id="markdownInputMain" placeholder="# Welcome to SnapDock"></textarea>
-    </section>
-    <section id="previewMain" class="markdown-preview"></section>
-  </main>
+    <section class="editor-bubble">
+      <!-- Toolbar inside bubble -->
+      <header class="toolbar">
+        <img src="assets/logo.png" alt="SnapDock" class="logo" />
+        <button id="newFileBtn">New</button>
+        <button id="openFileBtnTop">Open File</button>
+        <button id="openFolderBtnTop">Open Folder</button>
+        <button id="saveFileBtnTop">Save</button>
+        <button id="previewToggleBtn">Show Preview</button>
+      </header>
 
-  <!-- Sidebars -->
-  <aside class="topbar">
-    <h3>Recent Files</h3>
-    <ul id="recentFilesList"></ul>
-  </aside>
-  <aside class="file-tree">
-    <h3>Project Files</h3>
-    <ul id="fileTreeList"></ul>
-  </aside>
+      <!-- Editor + Preview overlay -->
+      <div class="editor-pane">
+        <textarea id="markdownInputMain" placeholder="# Welcome to SnapDock"></textarea>
+        <section id="previewMain" class="markdown-preview hidden"></section>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer">

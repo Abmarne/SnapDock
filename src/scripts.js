@@ -17,6 +17,9 @@ const previewToggleBtn = byId("previewToggleBtn");
 const versionTag = byId("versionTag");
 const recentList = byId("recentFilesList");
 const fileTreeList = byId("fileTreeList");
+const sidebar = document.getElementById("sidebar");
+const resizer = document.getElementById("resizer");
+
 
 // Init
 initInitialState({ editor });
@@ -24,7 +27,7 @@ initTheme({ toggleBtn: themeToggleBtn });
 initViewModeToggle({ toggleBtn: previewToggleBtn, editor, preview });
 initAutosave({ editor });
 renderRecentFiles(recentList, editor);
-renderFileTree(fileTreeList,);
+renderFileTree(fileTreeList);
 setVersionTag();
 
 
@@ -54,10 +57,10 @@ document.getElementById("openFileBtnTop")?.addEventListener("click", async () =>
   }
 });
 
-document.getElementById("openFolderBtnTop")?.addEventListener("click", async () => {
+document.getElementById("openFolderBtnTop").addEventListener("click", async () => {
   const folderPath = await window.electronAPI.openFolder();
   if (folderPath) {
-    fileTreeList.innerHTML = ""; // clear old tree
+    fileTreeList.innerHTML = "";
     renderFileTree(fileTreeList, folderPath);
   }
 });
@@ -129,3 +132,20 @@ document.getElementById("update")?.addEventListener("click", async () => {
     alert("Update failed:\n" + err);
   }
 });
+
+resizer.addEventListener("mousedown", e => {
+  document.addEventListener("mousemove", resize);
+  document.addEventListener("mouseup", stopResize);
+});
+
+function resize(e) {
+  const newWidth = e.clientX;
+  if (newWidth > 180 && newWidth < 400) {
+    sidebar.style.width = newWidth + "px";
+  }
+}
+
+function stopResize() {
+  document.removeEventListener("mousemove", resize);
+  document.removeEventListener("mouseup", stopResize);
+}

@@ -3,29 +3,34 @@ import { renderMarkdown } from "../markdown.js";
 export function initViewModeToggle({ toggleBtn, editor, preview }) {
   if (!toggleBtn || !editor || !preview) return;
 
-  // Default: editor visible, preview hidden
-  preview.style.display = "none";
+  // Default state: editor visible, preview hidden
+  preview.classList.add("hidden");
   editor.style.display = "block";
   toggleBtn.textContent = "Show Preview";
 
+  const updatePreview = () => {
+    preview.innerHTML = renderMarkdown(editor.value);
+  };
+
   toggleBtn.addEventListener("click", () => {
-    const showingPreview = preview.style.display !== "none";
+    const showingPreview = !preview.classList.contains("hidden");
+
     if (showingPreview) {
-      preview.style.display = "none";
+      preview.classList.add("hidden");
       editor.style.display = "block";
       toggleBtn.textContent = "Show Preview";
     } else {
-      preview.innerHTML = renderMarkdown(editor.value);
-      preview.style.display = "block";
+      updatePreview();
+      preview.classList.remove("hidden");
       editor.style.display = "none";
       toggleBtn.textContent = "Edit Markdown";
     }
   });
 
-  // Optional live render while typing (kept simple for v1.9)
+  // Optional live render while typing
   editor.addEventListener("input", () => {
-    if (preview.style.display !== "none") {
-      preview.innerHTML = renderMarkdown(editor.value);
+    if (!preview.classList.contains("hidden")) {
+      updatePreview();
     }
   });
 }

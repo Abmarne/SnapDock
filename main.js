@@ -58,8 +58,6 @@ ipcMain.handle("dialog:openRecentFile", async (event, filePath) => {
 });
 
 ipcMain.handle("dialog:openHelp", async () => {
-  const fs = require("fs");
-  const path = require("path");
   try {
     const helpPath = path.join(__dirname, "assets", "resources", "docs", "user_guide.md");
     return fs.readFileSync(helpPath, "utf-8");
@@ -70,8 +68,10 @@ ipcMain.handle("dialog:openHelp", async () => {
 });
 
 ipcMain.handle("dialog:listFiles", async (event, dirPath) => {
-  const fs = require("fs");
-  const path = require("path");
+  if (!dirPath || typeof dirPath !== "string") {
+    console.error("listFiles called without a valid directory path");
+    return [];
+  }
   try {
     const files = fs.readdirSync(dirPath, { withFileTypes: true });
     return files.map(f => ({
@@ -85,7 +85,26 @@ ipcMain.handle("dialog:listFiles", async (event, dirPath) => {
   }
 });
 
-
+ipcMain.handle("dialog:checkUpdate", async () => {
+  return new Promise((resolve, reject) => {
+    https.get("https://api.github.com/repos/ZFordDev/SnapDock/releases/latest", {
+      headers: { "User-Agent": "SnapDock" }
+    }, res => {
+      let data = "";
+      res.on("data", chunk => data += chunk);
+      res.on("end", () => {
+        try {
+          const release = JSON.parse(data);
+          const latestTag = release.tag_name.replace(/^v/, "");
+          const currentVersion = pkg.version;
+          resolve({ latestTag, currentVersion, updateAvailable: latestTag !== currentVersion });
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }).on("error", reject);
+  });
+});
 
 ipcMain.handle("dialog:updateApp", async () => {
   const files = [
