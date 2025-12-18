@@ -59,11 +59,7 @@
   border-radius: 4px;
   display: none;
   text-align: center;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--editor-bg);
+  color: var(--editor-text);
 }
 
-body.dark-mode #filenameInput {
-  background-color: var(--bg-editor);
-  color: var(--fg-main);
-}

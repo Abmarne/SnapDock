@@ -1,14 +1,17 @@
 .markdown-preview {
   font-family: system-ui, sans-serif;
   line-height: 1.6;
-  color: #222;
+  color: var(--editor-text);
+  background: var(--editor-bg);
   max-width: 900px;
   margin: 0 auto;
 }
+
+/* Headings */
 .markdown-preview h1 {
   font-size: 2rem;
   margin-top: 2.5rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: .3rem;
 }
 
@@ -16,31 +19,41 @@
   font-size: 1.6rem;
   margin-top: 2rem;
 }
+
+/* Paragraphs & lists */
 .markdown-preview p {
   margin: 1rem 0;
 }
+
 .markdown-preview ul,
 .markdown-preview ol {
   margin: 1rem 0 1rem 1.5rem;
 }
+
+/* Blockquotes */
 .markdown-preview blockquote {
-  border-left: 4px solid #ccc;
+  border-left: 4px solid var(--border-color);
   padding-left: 1rem;
-  color: #555;
+  color: var(--editor-text-secondary, var(--editor-text));
   margin: 1.5rem 0;
 }
+
+/* Code blocks */
 .markdown-preview pre {
-  background: #f6f8fa;
+  background: var(--code-bg, #2a2a2a);
+  color: var(--code-text, var(--editor-text));
   padding: 1rem;
   border-radius: 6px;
   overflow-x: auto;
 }
 
 .markdown-preview code {
-  background: #f2f2f2;
+  background: var(--inline-code-bg, var(--code-bg));
   padding: 2px 4px;
   border-radius: 4px;
 }
+
+/* Tables */
 .markdown-preview table {
   width: 100%;
   border-collapse: collapse;
@@ -49,9 +62,11 @@
 
 .markdown-preview th,
 .markdown-preview td {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   padding: 8px;
 }
+
+/* Notes, warnings, tips */
 .md-note,
 .md-warning,
 .md-tip {
@@ -61,16 +76,16 @@
 }
 
 .md-note {
-  background: #e7f3ff;
-  border-left: 4px solid #2196f3;
+  background: var(--note-bg, #e7f3ff);
+  border-left: 4px solid var(--note-accent, #2196f3);
 }
 
 .md-warning {
-  background: #fff3cd;
-  border-left: 4px solid #ff9800;
+  background: var(--warning-bg, #fff3cd);
+  border-left: 4px solid var(--warning-accent, #ff9800);
 }
 
 .md-tip {
-  background: #e8f5e9;
-  border-left: 4px solid #4caf50;
+  background: var(--tip-bg, #e8f5e9);
+  border-left: 4px solid var(--tip-accent, #4caf50);
 }

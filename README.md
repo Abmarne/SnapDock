@@ -18,53 +18,64 @@ It’s ideal for documentation, notes, and study workflows where simplicity, spe
 
 ## Release Status
 
-**Current build:** Beta 2.1.1  
-This update introduces SnapDock’s new **theme engine**, a fully modular **CSS architecture**, and major upgrades to the **Markdown preview** and **PDF export pipeline**.
+**Current build:** Beta **2.1.2**  
+This update delivers SnapDock’s largest visual refinement to date — a fully unified color system, upgraded theme palettes, improved syntax highlighting, and a cleaner, more consistent UI across the entire workspace.
 
-### 🔧 What’s new in 2.1.1
+###  What’s new in 2.1.2
 
-#### **✨ New Theme Engine (4 Themes + Drop‑Up Selector)**
-SnapDock now includes a fully modular theme system with:
+#### **Complete Theme Palette Overhaul (All 4 Themes Updated)**  
+Every theme has been rebuilt with a **full variable set**, covering:
 
-- **Light**
-- **Dark**
-- **Solarized Light**
-- **Arctic Dark (Nord‑inspired)**
-
-A new **drop‑up theme selector** in the footer makes switching instant and intuitive.  
-Themes are now isolated, maintainable, and easy to extend.
-
-#### **📝 Modern Markdown Renderer (Preview Engine v2)**
-Supports:
-
-- Tables  
-- Footnotes  
-- Callouts  
+- Editor  
+- Workspace  
+- Sidebar  
+- Footer  
+- Markdown preview  
 - Syntax highlighting  
-- Subscript / superscript  
-- Cleaner typography  
-- Better spacing and layout  
+- Notes / warnings / tips  
+- Tables  
+- Code blocks  
 
-#### **📄 PDF Export Pipeline Upgrade**
-PDF rendering now uses a dedicated styling layer, separate from the preview.  
-This unlocks:
+Themes now feel **cohesive**, **balanced**, and **professionally tuned**:
 
-- Page‑break rules  
-- Print‑safe colors  
-- Layout control  
-- Future header/footer support  
+- **Light** — cleaner GitHub‑style palette  
+- **Dark** — improved contrast and readability  
+- **Solarized Light** — true Base3/Base2 palette with correct accents  
+- **Arctic Dark (Nord)** — full Nord‑accurate Frost/Aurora colors  
 
-#### **🧹 Architecture Cleanup**
-The entire CSS system has been refactored into:
+This is the first release where SnapDock’s UI, preview, and syntax highlighting all share a **single, unified color system**.
 
-- `base/` (layout, variables)  
-- `components/` (header, sidebar, editor, theme selector, etc.)  
-- `themes/` (each theme isolated)  
-- `markdown/` (preview + PDF styles)  
+#### **UI Polish & Layout Improvements**
+2.1.2 includes several visual refinements:
 
-This makes SnapDock easier to maintain, extend, and theme.
+- Updated **SnapDock logo** for better visibility across themes  
+- Fixed **footer overlap** and improved layout spacing  
+- Update button now sits correctly above the footer  
+- Cleaner filename input styling (now theme‑aware)  
+- More consistent padding, spacing, and typography  
 
-**Next milestone:** UI editor upgrade — improved text box, spacing, and writing experience.
+The entire interface feels tighter, cleaner, and more intentional.
+
+#### **Markdown Preview Engine v2.1**
+The preview renderer now uses theme variables for:
+
+- Headings  
+- Blockquotes  
+- Tables  
+- Inline code  
+- Code blocks  
+- Callouts  
+- Diff blocks (additions/deletions)  
+
+
+This gives SnapDock **consistent, beautiful code rendering** across all themes.
+
+#### **Rendering Logic Fixes**
+- Removed legacy hard‑coded colors  
+- Fixed preview font color logic  
+- Unified all preview components under theme variables  
+- Cleaned up filename input styling  
+- Ensured consistent contrast across themes  
 
 ---
 

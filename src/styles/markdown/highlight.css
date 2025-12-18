@@ -3,8 +3,8 @@
   display: block;
   overflow-x: auto;
   padding: 1rem;
-  background: #f6f8fa;
-  color: #24292e;
+  background: var(--hljs-bg);
+  color: var(--hljs-text);
   border-radius: 6px;
   font-size: 0.95rem;
   line-height: 1.5;
@@ -13,7 +13,7 @@
 /* Comments */
 .hljs-comment,
 .hljs-quote {
-  color: #6a737d;
+  color: var(--hljs-comment);
   font-style: italic;
 }
 
@@ -23,7 +23,7 @@
 .hljs-literal,
 .hljs-section,
 .hljs-link {
-  color: #d73a49;
+  color: var(--hljs-keyword);
 }
 
 /* Numbers, built-ins */
@@ -31,42 +31,42 @@
 .hljs-name,
 .hljs-type,
 .hljs-attribute {
-  color: #005cc5;
+  color: var(--hljs-number);
 }
 
 /* Strings */
 .hljs-string,
 .hljs-symbol,
 .hljs-bullet {
-  color: #032f62;
+  color: var(--hljs-string);
 }
 
 /* Titles, class names */
 .hljs-title,
 .hljs-class .hljs-title {
-  color: #6f42c1;
+  color: var(--hljs-title);
   font-weight: bold;
 }
 
 /* Functions */
 .hljs-function .hljs-title {
-  color: #005cc5;
+  color: var(--hljs-number);
 }
 
 /* Variables */
 .hljs-variable,
 .hljs-template-variable {
-  color: #e36209;
+  color: var(--hljs-variable);
 }
 
 /* Additions */
 .hljs-addition {
-  color: #22863a;
-  background-color: #f0fff4;
+  color: var(--hljs-addition-text);
+  background-color: var(--hljs-addition-bg);
 }
 
 /* Deletions */
 .hljs-deletion {
-  color: #b31d28;
-  background-color: #ffeef0;
+  color: var(--hljs-deletion-text);
+  background-color: var(--hljs-deletion-bg);
 }
