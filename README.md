@@ -9,6 +9,14 @@
 
 ---
 
+> **A Note from ZFordDev**  
+SnapDock development is taking a short break over the Christmas and New Year period.  
+Thank you to everyone who has supported the project, tested early builds, and shared feedback - it genuinely means a lot.  
+I’m looking forward to diving back in after the holidays and finishing the final polish for SnapDock’s official release in the new year.  
+See you in 2026.
+
+---
+
 ## Overview
 
 SnapDock is a lightweight Markdown workspace with a built‑in file‑tree dock, designed for navigating and editing folders of `.md` files quickly and cleanly.  
