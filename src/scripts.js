@@ -1,231 +1,35 @@
-import { initInitialState } from "./modules/ui/editorState.js";
-import { initTheme, applyTheme } from "./modules/ui/theme.js";
-import { initViewModeToggle } from "./modules/ui/viewMode.js";
-import { loadContent, saveCurrentFile } from "./modules/file/operations.js";
-import { initAutosave } from "./modules/file/autosave.js";
-import { renderRecentFiles, saveToRecentFiles } from "./modules/file/recent.js";
+// scripts.js — SnapDock Orchestrator
 
-function byId(id) { return document.getElementById(id); }
+import { initApp } from "./modules/ui/app.js";
+import { initThemeMenu } from "./modules/ui/themeMenu.js";
+import { initEditorSync } from "./modules/ui/editorSync.js";
+import { initFileTree } from "./modules/file/tree.js";
+import { initResizer } from "./modules/ui/resizer.js";
+import { initUpdateSystem } from "./modules/system/update.js";
+import { openFileDialog, openFromRecent } from "./modules/file/open.js";
 
-const editor = byId("markdownInputMain");
-const preview = byId("previewMain");
-const themeToggleBtn = document.getElementById("themeBtn");
-const previewToggleBtn = byId("previewToggleBtn");
-const versionTag = byId("versionTag");
-const recentList = byId("recentFilesList");
-const fileTreeList = byId("fileTreeList");
-const sidebar = byId("sidebar");
-const resizer = byId("resizer");
-const updateBtn = byId("update");
-const themeMenu = document.getElementById("themeMenu");
-
-
-// INITIALIZATION
-initInitialState({ editor });
-initTheme({});
-initViewModeToggle({ toggleBtn: previewToggleBtn, editor, preview });
-initAutosave({ editor });
-renderRecentFiles(recentList, editor);
-renderFileTree(fileTreeList);
-setVersionTag();
-checkForUpdatesOnLaunch();
-
-// THEME MENU
-document.querySelectorAll(".theme-menu button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    applyTheme(btn.dataset.theme);
-    themeMenu.classList.remove("open");
-  });
-});
-
-// Open/close menu
-themeToggleBtn.addEventListener("click", () => {
-  themeMenu.classList.toggle("open");
-});
-
-// VERSION TAG
-
-async function setVersionTag() {
-  const info = await window.electronAPI.getVersion();
-  versionTag.textContent = `SnapDock ${info.version} (${info.stage}) — ${info.date}`;
+// Helper
+function byId(id) {
+  return document.getElementById(id);
 }
 
-// FILENAME DISPLAY
+// --- MAIN BOOTSTRAP ---
+window.addEventListener("DOMContentLoaded", () => {
 
-function setFilenameDisplay(filePath) {
-  const parts = filePath.split(/[\\/]/);
-  const base = parts[parts.length - 1];
-  const name = base.replace(/\.[^/.]+$/, "");
-  document.getElementById("filenameDisplay").textContent = name;
-}
+  // Core App Initialization
+  initApp();
 
-// FILE OPERATIONS
+  // UI Modules
+  initThemeMenu();
+  initEditorSync();
+  initResizer();
+  initUpdateSystem();
 
-document.getElementById("newFileBtn")?.addEventListener("click", () => {
-  editor.value = "";
-  preview.innerHTML = "";
-  document.getElementById("filenameDisplay").textContent = "Untitled";
+  // File Tree
+  const fileTreeList = byId("fileTreeList");
+  if (fileTreeList) initFileTree(fileTreeList);
+
+  // File Open Buttons
+  byId("openFileBtnTop")?.addEventListener("click", openFileDialog);
+
 });
-
-document.getElementById("saveFileBtnTop")?.addEventListener("click", () => {
-  saveCurrentFile(editor);
-});
-
-document.getElementById("openFileBtnTop")?.addEventListener("click", async () => {
-  const result = await loadContent(editor);
-  if (result && result.filePath) {
-    saveToRecentFiles(result.filePath);
-    renderRecentFiles(recentList, editor);
-    setFilenameDisplay(result.filePath);
-  }
-});
-
-document.getElementById("openFolderBtnTop")?.addEventListener("click", async () => {
-  const folderPath = await window.electronAPI.openFolder();
-  if (folderPath) {
-    fileTreeList.innerHTML = "";
-    renderFileTree(fileTreeList, folderPath);
-  }
-});
-
-console.log("EDITOR ELEMENT:", editor);
-
-document.getElementById("exportPdfBtn").addEventListener("click", () => {
-    const htmlContent = window.markdown?.render(editor?.value || "");
-    window.electronAPI.exportToPDF(htmlContent);
-});
-
-// HELP MODAL
-
-document.getElementById("helpBtn")?.addEventListener("click", async () => {
-  const content = await window.electronAPI.openHelp();
-  const md = window.markdown.render(content);
-
-  const modal = document.createElement("div");
-  modal.className = "modal";
-  modal.innerHTML = `
-    <div class="modal-content">
-      ${md}
-      <button id="closeHelp">Close</button>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  document.getElementById("closeHelp").addEventListener("click", () => modal.remove());
-});
-
-// FILE TREE
-
-async function renderFileTree(container, dirPath) {
-  const files = await window.electronAPI.listFiles(dirPath);
-  files.forEach(f => {
-    const li = document.createElement("li");
-    li.textContent = f.name;
-    li.className = f.type;
-
-    if (f.type === "folder") {
-      const nested = document.createElement("ul");
-      nested.style.display = "none";
-
-      li.addEventListener("click", async () => {
-        if (nested.childElementCount === 0) {
-          const subFiles = await window.electronAPI.listFiles(f.fullPath);
-          subFiles.forEach(sf => {
-            const subLi = document.createElement("li");
-            subLi.textContent = sf.name;
-            subLi.className = sf.type;
-
-            if (sf.type === "file") {
-              subLi.addEventListener("click", async (e) => {
-                e.stopPropagation();
-                const content = await window.electronAPI.openRecentFile(sf.fullPath);
-                if (content !== null) editor.value = content;
-              });
-            }
-
-            nested.appendChild(subLi);
-          });
-        }
-        nested.style.display = nested.style.display === "none" ? "block" : "none";
-      });
-
-      li.appendChild(nested);
-    } else {
-      li.addEventListener("click", async () => {
-        const content = await window.electronAPI.openRecentFile(f.fullPath);
-        if (content !== null) editor.value = content;
-      });
-    }
-
-    container.appendChild(li);
-  });
-}
-
-// UPDATE SYSTEM (NEW)
-
-async function checkForUpdatesOnLaunch() {
-  const result = await window.electronAPI.checkForUpdates();
-
-  if (result?.updateAvailable) {
-    updateBtn.classList.add("update-available");
-    updateBtn.textContent = "Update Available";
-  }
-}
-
-// User clicks update button
-updateBtn?.addEventListener("click", async () => {
-  updateBtn.disabled = true;
-  updateBtn.textContent = "Checking...";
-
-  const result = await window.electronAPI.checkForUpdates();
-
-  if (!result.updateAvailable) {
-    updateBtn.textContent = "No Updates";
-    setTimeout(() => {
-      updateBtn.textContent = "Update";
-      updateBtn.disabled = false;
-    }, 1500);
-    return;
-  }
-
-  updateBtn.textContent = "Downloading...";
-  await window.electronAPI.downloadUpdate();
-});
-
-// Update events
-window.electronAPI.onUpdateProgress((progress) => {
-  updateBtn.textContent = `Downloading ${Math.floor(progress.percent)}%`;
-});
-
-window.electronAPI.onUpdateReady(() => {
-  updateBtn.textContent = "Restart to Update";
-  updateBtn.disabled = false;
-
-  updateBtn.onclick = () => {
-    window.electronAPI.installUpdate();
-  };
-});
-
-window.electronAPI.onUpdateError((err) => {
-  updateBtn.textContent = "Update Failed";
-  console.error("Update error:", err);
-});
-
-// SIDEBAR RESIZER
-
-resizer.addEventListener("mousedown", e => {
-  document.addEventListener("mousemove", resize);
-  document.addEventListener("mouseup", stopResize);
-});
-
-function resize(e) {
-  const newWidth = e.clientX;
-  if (newWidth > 180 && newWidth < 400) {
-    sidebar.style.width = newWidth + "px";
-  }
-}
-
-function stopResize() {
-  document.removeEventListener("mousemove", resize);
-  document.removeEventListener("mouseup", stopResize);
-}

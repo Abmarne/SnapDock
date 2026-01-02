@@ -1,8 +1,8 @@
 {
   "name": "snapdock",
-  "version": "2.1.2",
-  "buildStage": "Beta",
-  "releaseDate": "2025-12-18",
+  "version": "2.2.1",
+  "buildStage": "RC",
+  "releaseDate": "2026-01-02",
   "description": "SnapDock — lightweight markdown editor with file tree, recent files, and dynamic preview.",
   "author": "ZetoLabs",
   "private": true,
@@ -35,7 +35,8 @@
     "esbuild": "^0.27.1",
     "rcedit": "^5.0.2"
   },
-  "build": {
+
+    "build": {
     "appId": "com.zetolabs.snapdock",
     "productName": "SnapDock",
     "files": [
@@ -45,9 +46,23 @@
       "assets/**/*",
       "main.js"
     ],
+  
     "win": {
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon.ico",
+      "target": [
+        "nsis"
+      ]
     },
+  
+    "linux": {
+      "icon": "assets/icon.png",
+      "category": "Utility",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+  
     "publish": [
       {
         "provider": "github",

@@ -274,10 +274,6 @@ button:active {
   border-radius: 0 0 12px 12px;
 }
 
-.hidden {
-  display: none !important;
-}
-
 
 .footer {
   flex-shrink: 0;          

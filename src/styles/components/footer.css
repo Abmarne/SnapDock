@@ -1,18 +1,22 @@
-/* Footer and status bar styles */
-
+/* footer.css */
 .footer {
   position: fixed;
   bottom: 0;
-  width: 100%;
-  z-index: 10;
-  flex-shrink: 0;          
-  height: 50px;         
+  left: 0;
+  right: 0;
+  height: 28px;
+  
+  /* Modern Glass Effect */
+  background: var(--footer-bg-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  border-top: 1px solid var(--tab-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid var(--border-color);
-  padding: 0 16px;
-  background: var(--footer-bg);
+  padding: 0 12px;
+  z-index: 9999; /* Ensure it stays above the scrolling workspace */
 }
 
 .footer-left,
@@ -20,10 +24,30 @@
 .footer-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
+/* Version & Status Text */
 .version {
-  font-size: 0.85em;
-  opacity: 0.7;
+  opacity: 0.6;
+  font-family: var(--font-mono); /* Monospace looks great in status bars */
+  letter-spacing: 0.5px;
 }
+
+/* Footer Buttons: Flat & Subtle */
+.footer button {
+  background: transparent;
+  border: none;
+  color: var(--tab-text);
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+}
+
+.footer button:hover {
+  background: var(--tab-idle-bg);
+  color: var(--editor-text);
+}
+

@@ -55,4 +55,13 @@ body.arctic-theme {
   --hljs-addition-text: #A3BE8C;
   --hljs-deletion-bg: #4C566A;
   --hljs-deletion-text: #BF616A; 
+
+  --tab-bar-bg:    #2E3440; /* Darker base */
+  --tab-idle-bg:   #3B4252; /* Lighter tab */
+  --tab-active-bg: #434C5E; /* Highlighted active */
+  --tab-text:      var(--editor-text-secondary);
+  --tab-accent:    var(--accent-cyan);
+  --tab-border:    var(--border-color);
+
+  --footer-bg-glass: rgba(59, 66, 82, 0.7);
 }

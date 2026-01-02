@@ -50,5 +50,14 @@ body.dark-theme {
   --hljs-addition-text: #8fda8f;
   --hljs-deletion-bg: #3a1e1e;
   --hljs-deletion-text: #ff8a8a;
+
+  --tab-bar-bg:    #0f1216;
+  --tab-idle-bg:   #181b20;
+  --tab-active-bg: #1c1f24;
+  --tab-text:      var(--editor-text-secondary);
+  --tab-accent:    var(--note-accent);
+  --tab-border:    var(--border-color);
+
+  --footer-bg-glass: rgba(30, 30, 30, 0.7);
 }
 

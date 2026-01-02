@@ -60,4 +60,13 @@ body.solarized-theme {
   --hljs-addition-text: #22863a;
   --hljs-deletion-bg: #ffeef0;
   --hljs-deletion-text: #b31d28;
+
+  --tab-bar-bg:    #eee8d5;
+  --tab-idle-bg:   #e4ddc3; /* Slightly deeper than bar */
+  --tab-active-bg: #fdf6e3; /* Matches editor bg */
+  --tab-text:      var(--editor-text-secondary);
+  --tab-accent:    var(--accent-blue);
+  --tab-border:    var(--border-color);
+
+  --footer-bg-glass: rgba(238, 232, 213, 0.7);
 }

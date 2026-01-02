@@ -1,7 +1,7 @@
 /* Base */
 @import "./base/reset.css";
-@import "./base/variables.css";
-@import "./base/typography.css";
+/* REMOVE: @import "./base/variables.css"; */
+/* REMOVE: @import "./base/typography.css"; */
 @import "./base/layout.css";
 
 /* Components */
@@ -13,12 +13,13 @@
 @import "./components/modal.css";
 @import "./components/buttons.css";
 @import "./components/theme-selector.css";
+@import "./components/tabs.css";
 
 /* Markdown */
 @import "./markdown/markdown.css";
-@import "./markdown/highlights.css";
+@import "./markdown/highlight.css"; /* FIXED */
 
-/* Theme  */
+/* Theme */
 @import "./themes/light.css";
 @import "./themes/dark.css";
 @import "./themes/solarized.css";

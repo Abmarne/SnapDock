@@ -4,10 +4,7 @@ const path = require("path");
 const pkg = require("./package.json");
 const pdfModule = require("./src/modules/pdf/pdf.js");
 
-console.log("RUNNING FROM:", __dirname);
-console.log("PRELOAD PATH:", path.join(__dirname, "src", "preload.js"));
-
-// Import updater module
+// Updater
 const setupUpdater = require("./src/modules/update");
 
 let mainWindow;
@@ -24,17 +21,32 @@ function createWindow() {
     },
   });
 
-  mainWindow.loadFile("index.html");
+  // Remove all menus
+  mainWindow.setMenu(null);
+  mainWindow.setMenuBarVisibility(false);
+  mainWindow.setAutoHideMenuBar(true);
 
-  // initialize the updater
+  // Block DevTools shortcuts
+  mainWindow.webContents.on("before-input-event", (event, input) => {
+    if (
+      (input.key === "I" && input.control && input.shift) ||
+      input.key === "F12"
+    ) {
+      event.preventDefault();
+    }
+  });
+
+  mainWindow.loadFile("index.html");
   setupUpdater(mainWindow);
 }
 
 app.whenReady().then(createWindow);
 
-// File + Folder Dialog Handlers
+// -----------------------------
+// FILE OPERATIONS
+// -----------------------------
 
-ipcMain.handle("dialog:openFile", async () => {
+ipcMain.handle("open-file", async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile"],
     filters: [{ name: "Markdown", extensions: ["md"] }],
@@ -44,30 +56,44 @@ ipcMain.handle("dialog:openFile", async () => {
 
   const filePath = filePaths[0];
   const content = fs.readFileSync(filePath, "utf-8");
+
   return { content, filePath };
 });
 
-ipcMain.handle("dialog:openFolder", async () => {
+ipcMain.handle("open-folder", async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openDirectory"],
   });
 
   if (canceled || filePaths.length === 0) return null;
+
   return filePaths[0];
 });
 
-ipcMain.handle("dialog:saveFile", async (event, content) => {
-  const { canceled, filePath } = await dialog.showSaveDialog({
-    filters: [{ name: "Markdown", extensions: ["md"] }],
-  });
+ipcMain.handle("save-file", async (event, filePath, content, suggestedName) => {
+  try {
+    if (!filePath) {
+      const { canceled, filePath: newFilePath } = await dialog.showSaveDialog({
+        title: "Save File",
+        defaultPath: suggestedName || "untitled"
+      });
 
-  if (canceled || !filePath) return false;
+      if (canceled || !newFilePath) return false;
 
-  fs.writeFileSync(filePath, content, "utf-8");
-  return true;
+      fs.writeFileSync(newFilePath, content, "utf-8");
+      return { newFilePath };
+    }
+
+    fs.writeFileSync(filePath, content, "utf-8");
+    return true;
+
+  } catch (err) {
+    console.error("Failed to save file:", err);
+    return false;
+  }
 });
 
-ipcMain.handle("dialog:openRecentFile", async (event, filePath) => {
+ipcMain.handle("open-recent-file", async (event, filePath) => {
   try {
     return fs.readFileSync(filePath, "utf-8");
   } catch (err) {
@@ -76,24 +102,15 @@ ipcMain.handle("dialog:openRecentFile", async (event, filePath) => {
   }
 });
 
-ipcMain.handle("dialog:openHelp", async () => {
-  try {
-    const helpPath = path.join(__dirname, "assets", "resources", "docs", "user_guide.md");
-    return fs.readFileSync(helpPath, "utf-8");
-  } catch (err) {
-    console.error("Failed to load help doc:", err);
-    return "# Help file not found";
-  }
-});
-
-ipcMain.handle("dialog:listFiles", async (event, dirPath) => {
+ipcMain.handle("list-files", async (event, dirPath) => {
   if (!dirPath || typeof dirPath !== "string") {
-    console.error("listFiles called without a valid directory path");
+    console.error("list-files called without valid path");
     return [];
   }
 
   try {
     const files = fs.readdirSync(dirPath, { withFileTypes: true });
+
     return files.map(f => ({
       name: f.name,
       type: f.isDirectory() ? "folder" : "file",
@@ -105,9 +122,33 @@ ipcMain.handle("dialog:listFiles", async (event, dirPath) => {
   }
 });
 
-// Version Info
+ipcMain.handle("open-file-by-path", async (_, path) => {
+  try {
+    return await fs.promises.readFile(path, "utf8");
+  } catch {
+    return null;
+  }
+});
 
-ipcMain.handle("dialog:getVersion", async () => {
+// -----------------------------
+// HELP DOCUMENT
+// -----------------------------
+
+ipcMain.handle("dialog:openHelp", async () => {
+  try {
+    const helpPath = path.join(__dirname, "assets", "resources", "docs", "user_guide.md");
+    return fs.readFileSync(helpPath, "utf-8");
+  } catch (err) {
+    console.error("Failed to load help doc:", err);
+    return "# Help file not found";
+  }
+});
+
+// -----------------------------
+// VERSION INFO
+// -----------------------------
+
+ipcMain.handle("get-version", async () => {
   return {
     version: pkg.version,
     stage: pkg.buildStage,
@@ -115,7 +156,10 @@ ipcMain.handle("dialog:getVersion", async () => {
   };
 });
 
-// PDF Export Handler
-ipcMain.on("export-pdf", (event, htmlContent) => {
-    pdfModule.exportCurrentMarkdown(htmlContent);
+// -----------------------------
+// PDF EXPORT
+// -----------------------------
+
+ipcMain.handle("export-pdf", (event, htmlContent) => {
+  pdfModule.exportCurrentMarkdown(htmlContent);
 });

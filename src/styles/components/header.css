@@ -1,65 +1,108 @@
-/* Header and top navigation styles */
-
+/* Header Layout Overhaul */
 .top-header {
   flex-shrink: 0;
-  height: 60px;
+  height: 44px; /* Even tighter, professional height */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: var(--toolbar-bg);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 16px;
-  gap: 24px;
+  background: var(--sidebar-bg);
+  border-bottom: 1px solid var(--tab-border);
+  padding: 0 10px;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  gap: 2px; /* Tight grouping for buttons */
+  flex: 1; /* Pushes the center to the actual middle */
 }
 
 .header-center {
-  flex: 1;
+  flex: 0 1 auto; /* Doesn't grow, just stays centered */
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .header-right {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  justify-content: flex-end;
+  flex: 1; /* Matches the left side to keep center centered */
 }
 
-.top-header .logo {
-  height: 32px;
-  width: auto;
-}
-
-#filenameWrapper {
-  flex: 1;
-  text-align: center;
-  position: relative;
-}
-
-#filenameDisplay {
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  padding: .25rem .5rem;
-  display: inline-block;
-}
-
-#filenameInput {
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: .25rem .5rem;
-  border: none;
+/* Tool Buttons Style */
+.header-left button, 
+.header-right button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--tab-text);
+  padding: 4px 10px;
+  font-size: 0.8rem;
   border-radius: 4px;
-  display: none;
-  text-align: center;
-  background-color: var(--editor-bg);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.header-left button:hover,
+.header-right button:hover {
+  background: var(--tab-idle-bg);
   color: var(--editor-text);
 }
 
+/* The Vertical Divider */
+.divider {
+  width: 1px;
+  height: 18px;
+  background: var(--tab-border);
+  margin: 0 8px;
+}
+
+/* Highlight the Save/Export differently */
+#saveFileBtnTop {
+  color: var(--tab-accent);
+  font-weight: 600;
+}
+
+/* The Preview Toggle Button */
+#previewToggleBtn {
+  background: var(--tab-idle-bg);
+  border: 1px solid var(--tab-border);
+  font-weight: 600;
+}
+
+#previewToggleBtn:hover {
+  background: var(--tab-active-bg);
+  border-color: var(--tab-accent);
+}
+
+#filenameWrapper {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+}
+
+#filenameDisplay {
+  font-size: 0.9rem; /* Smaller, modern size */
+  font-weight: 600;
+  color: var(--editor-text);
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#filenameDisplay:hover {
+  background: var(--tab-idle-bg);
+}
+
+#filenameInput {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border: 1px solid var(--tab-accent);
+  border-radius: 4px;
+  outline: none;
+  background: var(--editor-bg);
+  color: var(--editor-text);
+  text-align: center;
+}

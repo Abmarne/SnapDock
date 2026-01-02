@@ -1,0 +1,120 @@
+
+
+.tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 38px;
+  padding: 0 10px;
+  background: var(--tab-bar-bg);
+  border-bottom: 1px solid var(--tab-border);
+  
+  /* Scrolling Logic */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  /* Fade mask for sleek "sliding" look */
+  -webkit-mask-image: linear-gradient(to right, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, black 92%, transparent 100%);
+}
+
+/* Restored Thin Scrollbar */
+.tab-bar::-webkit-scrollbar {
+  height: 3px; /* Thin enough to sit in the gap */
+}
+
+.tab-bar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tab-bar::-webkit-scrollbar-thumb {
+  background: var(--tab-border);
+  border-radius: 10px;
+  visibility: hidden; /* Hide by default */
+}
+
+.tab-bar:hover::-webkit-scrollbar-thumb {
+  visibility: visible; /* Show on hover */
+}
+
+.tab {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  min-width: 140px;
+  padding: 0 10px;
+  gap: 8px;
+  cursor: pointer;
+  background: var(--tab-idle-bg);
+  border: 1px solid var(--tab-border);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  color: var(--tab-text);
+  transition: all 0.2s ease;
+  position: relative;
+  /* Align tabs to the bottom of the bar so the gap is at the top */
+  align-self: flex-end; 
+}
+
+.tab:hover {
+  filter: brightness(1.1);
+}
+
+.tab.active {
+  background: var(--tab-active-bg);
+  color: var(--editor-text);
+  z-index: 2;
+  height: 31px; /* Overlap the bottom border */
+}
+
+/* The Color Accent Line */
+.tab.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--tab-accent);
+  border-radius: 4px 4px 0 0;
+}
+
+.tab-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--tab-border);
+}
+
+.tab.active .tab-led { background: var(--tab-accent); }
+.tab.dirty .tab-led { background: var(--warning-accent); }
+
+.tab-title {
+  flex-grow: 1;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  font-size: 14px;
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.tab-close:hover {
+  background: rgba(125, 125, 125, 0.2);
+  opacity: 1;
+}
+

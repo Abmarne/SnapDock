@@ -3,8 +3,15 @@ import { renderMarkdown } from "../markdown.js";
 export function initViewModeToggle({ toggleBtn, editor, preview }) {
   if (!toggleBtn || !editor || !preview) return;
 
-  preview.classList.add("hidden");
-  editor.style.display = "block";
+  // NEW: get the wrapper elements
+  const editorWrapper = document.querySelector(".editor-wrapper");
+  const previewWrapper = document.querySelector(".preview-wrapper");
+
+  preview.classList.remove("hidden");
+
+  // Initial state: editor visible, preview hidden
+  previewWrapper.classList.add("hidden");
+  editorWrapper.classList.remove("hidden");
   toggleBtn.textContent = "Show Preview";
 
   const updatePreview = () => {
@@ -12,22 +19,25 @@ export function initViewModeToggle({ toggleBtn, editor, preview }) {
   };
 
   toggleBtn.addEventListener("click", () => {
-    const showingPreview = !preview.classList.contains("hidden");
+    const showingPreview = !previewWrapper.classList.contains("hidden");
 
     if (showingPreview) {
-      preview.classList.add("hidden");
-      editor.style.display = "block";
+      // Switch to editor mode
+      previewWrapper.classList.add("hidden");
+      editorWrapper.classList.remove("hidden");
       toggleBtn.textContent = "Show Preview";
     } else {
+      // Switch to preview mode
       updatePreview();
-      preview.classList.remove("hidden");
-      editor.style.display = "none";
+      previewWrapper.classList.remove("hidden");
+      editorWrapper.classList.add("hidden");
       toggleBtn.textContent = "Edit Markdown";
     }
   });
 
+  // Live update preview while typing (only if preview is visible)
   editor.addEventListener("input", () => {
-    if (!preview.classList.contains("hidden")) {
+    if (!previewWrapper.classList.contains("hidden")) {
       updatePreview();
     }
   });
