@@ -1,6 +1,6 @@
 {
   "name": "snapdock",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "buildStage": "RC",
   "releaseDate": "2026-01-02",
   "description": "SnapDock — lightweight markdown editor with file tree, recent files, and dynamic preview.",

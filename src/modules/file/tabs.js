@@ -49,6 +49,7 @@ export function clearTabs() {
  */
 export function switchToTab(tabId) {
   const editor = getEditor();
+  
 
   // Save outgoing tab content
   const current = getActiveTab();
@@ -145,6 +146,11 @@ export function renderTabs() {
  * Get current active tab
  */
 export function getActiveTab() {
+  if (!tabs.length) {
+    const tab = createTab();
+    activeTabId = tab.id;
+    return tab;
+  }
   return tabs.find(t => t.id === activeTabId) || null;
 }
 
