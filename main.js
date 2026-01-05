@@ -35,6 +35,7 @@ function createWindow() {
       event.preventDefault();
     }
   });
+  
 
   mainWindow.loadFile("index.html");
   setupUpdater(mainWindow);

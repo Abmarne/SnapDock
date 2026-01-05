@@ -1,18 +1,13 @@
 // src/modules/system/update.js
 
-// Helper
-function byId(id) {
-  return document.getElementById(id);
-}
-
-const updateBtn = byId("update");
-
 // --- INITIALIZER ---
 export function initUpdateSystem() {
+  // Grab the button *after* DOMContentLoaded
+  const updateBtn = document.getElementById("update");
   if (!updateBtn) return;
 
   // Check for updates on launch
-  checkForUpdatesOnLaunch();
+  checkForUpdatesOnLaunch(updateBtn);
 
   // Manual update check
   updateBtn.addEventListener("click", async () => {
@@ -21,7 +16,7 @@ export function initUpdateSystem() {
 
     const result = await window.electronAPI.checkForUpdates();
 
-    if (!result.updateAvailable) {
+    if (!result || !result.updateAvailable) {
       updateBtn.textContent = "No Updates";
       setTimeout(() => {
         updateBtn.textContent = "Update";
@@ -54,7 +49,7 @@ export function initUpdateSystem() {
 }
 
 // --- CHECK ON LAUNCH ---
-async function checkForUpdatesOnLaunch() {
+async function checkForUpdatesOnLaunch(updateBtn) {
   const result = await window.electronAPI.checkForUpdates();
   if (result?.updateAvailable) {
     updateBtn.classList.add("update-available");

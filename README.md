@@ -9,6 +9,18 @@
 
 ---
 
+**⚠️ Update System Temporarily Disabled**
+
+The in‑app update system is currently not functioning in version **2.2.2** due to a regression introduced during the RC refactor.  
+This means **SnapDock 2.2.2 will not detect or download new updates**.
+
+A fix is already in progress and will be included in the next release.  
+For now, please download new versions manually from the Releases page.
+
+Thank you for testing the RC and helping ensure the full public release is rock‑solid.
+
+---
+
 > **A Note from ZFordDev**  
 SnapDock is back from its holiday break — refreshed, refocused, and ready for the next stage.
 
