@@ -44,7 +44,8 @@
       "index.html",
       "src/**/*",
       "assets/**/*",
-      "main.js"
+      "main.js",
+      "src/preloads.js"
     ],
   
     "win": {
