@@ -62,6 +62,7 @@
     "linux": {
       "icon": "assets/linux_logo.png",
       "category": "Utility",
+      "maintainer": "ZetoLabs <zetolabs.au@gmail.com>",
       "target": [
         "AppImage",
         "deb"
