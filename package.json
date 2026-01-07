@@ -67,6 +67,15 @@
         "deb"
       ]
     },
+
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "assets/icon.icns",
+      "target": [
+      "dmg",
+      "zip"
+      ]
+    },
   
     "publish": [
       {
