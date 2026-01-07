@@ -9,39 +9,16 @@
 
 ---
 
-## ✅ Update System Restored in v2.2.3
-
-The automatic update system has been fully restored in **v2.2.3**.  
-This release fixes the initialization issue introduced during the RC refactor and re‑establishes a stable update pipeline for all future versions.
-
-If you encounter **any new update‑related issues**, please open a bug report on the Issues page so we can investigate quickly.
-
-Thank you for helping us refine SnapDock during the RC cycle — your feedback directly strengthens the full public release.
-
----
-
-> **A Note from ZFordDev**  
-SnapDock is back from its holiday break — refreshed, refocused, and ready for the next stage.
-
-> Over the past few weeks, I’ve been quietly rebuilding core systems, cleaning up the UI, fixing long‑standing wiring issues, and preparing SnapDock for its first **Release Candidate**. This RC marks a major milestone: the app is now stable, consistent, and feature‑complete enough to stand on its own as a daily Markdown workspace.
-
-> Thank you to everyone who tested the early builds, reported bugs, and supported the project during its Beta phase. Your feedback directly shaped this release.
-
-> The RC build will go live on **January 5th**, and from there the final polish begins as we move toward SnapDock’s official 2026 release.
-
-> Let’s make this the year SnapDock becomes something truly special.
-
-> — **ZFordDev**
-
----
-
 ### 🌐 Official Website  
 https://snapdock.app
 
 ---
 
-## Overview
-SnapDock RC 2.2.0 introduces a stable, feature‑complete Markdown workspace with a rebuilt editor core, improved save logic, and a refined tab system. This release focuses on stability, polish, and preparing the app for the January 15th public launch.
+## **Overview**
+
+SnapDock is a lightweight Markdown editor built with Electron and powered by markdown‑it. It offers a clean, modern writing experience with a layout similar to professional editors, but with a focus on simplicity and visual clarity. The interface is styled more like a traditional word processor, making it approachable for everyday writing while still supporting full Markdown features.
+
+SnapDock is designed to be fast, minimal, and easy to use — a workspace that stays out of the way so you can focus on your notes, documents, and projects.
 
 ---
 
@@ -74,33 +51,28 @@ SnapDock/
 # **Download & Install**
 
 SnapDock is available as a full desktop application.  
-Choose the option that best suits your workflow:
-
-### **1. Download the Latest Stable Build (Recommended)**
-Get the most up‑to‑date and stable version directly from the website:
-
-[SnapDock official website](https://snapdock.app)
-
-This is the preferred way to install SnapDock for most users.
+If you're here on GitHub, you likely want either the packaged release or the source.
 
 ---
 
-### **2. GitHub Releases (Free Builds)**  
-If you prefer downloading directly from GitHub, the latest packaged Windows installer is always available here:
+### **1. GitHub Releases (Recommended)**  
+The latest packaged Windows installer is available here:
 
 **https://github.com/ZFordDev/SnapDock/releases**
 
+This is the easiest way to install SnapDock directly from the repo.
+
 ---
 
-### **3. Build From Source**  
-Developers can clone the repository and build SnapDock manually:
+### **2. Build From Source**  
+If you prefer to build the app yourself:
 
 ```bash
 npm install
 npm run build
 ```
 
-This produces a local packaged build identical to the release version.
+This produces a local packaged build identical to the official release.
 
 ---
 
@@ -111,31 +83,29 @@ macOS and Linux builds are planned and will be added once cross‑platform testi
 
 ## Screenshots
 
-<div align="center">
-    <img src="assets/ren_v2_lite.png" alt="Live preview in light theme" width="700" />
-    <br/>
-    <em>Live preview — Light theme</em>
-</div>
-
-<br/>
-
-<div align="center">
-    <img src="assets/v2_dark.png" alt="Editor view in dark theme" width="700" />
-    <br/>
-    <em>Editor view — Dark theme</em>
-</div>
-
-<br/>
-
-<div align="center">
-    <img src="assets/OG.png" alt="Filename header editing" width="700" />
-    <br/>
-    <em>The Original V1 design</em>
-</div>
+<table>
+  <tr>
+    <td align="center">
+      <img src="assets/ren_v2_lite.png" width="300" />
+      <br/>
+      <em>Live preview — Light theme</em>
+    </td>
+    <td align="center">
+      <img src="assets/v2_dark.png" width="300" />
+      <br/>
+      <em>Editor view — Dark theme</em>
+    </td>
+    <td align="center">
+      <img src="assets/OG.png" width="300" />
+      <br/>
+      <em>The Original V1 design</em>
+    </td>
+  </tr>
+</table>
 
 ---
 
-# ✅ **Features (Updated for RC 2.2.0)**
+# ✅ **Features**
 
 - Modern Markdown rendering (tables, code blocks, callouts, footnotes, etc.)  
 - Integrated file‑tree dock for navigating folders of `.md` files  
@@ -144,21 +114,21 @@ macOS and Linux builds are planned and will be added once cross‑platform testi
 - Recent files with workspace‑aware history  
 - Minimal, distraction‑free interface  
 - Live preview with theme‑accurate styling  
-- PDF export (restored and functional in RC)  
+- PDF export  
 - Automatic update checker  
 - Workspace auto‑loading on startup  
 
 ---
 
-# ✅ **Known Issues (RC 2.2.0)**
+# ⚠️ **Known Issues**
 
 1. **PDF export:** Fully functional, but advanced layout tuning (page breaks, headers/footers) is still planned  
 2. **macOS/Linux builds:** Packaging and testing are still in progress  
-3. **File‑tree edge cases:** Some workflows may still override unsaved changes if switching rapidly between files  
+3. **File‑tree edge cases:** Rapid switching between files may still override unsaved changes in rare cases  
 
 ---
 
-# ✅ **Roadmap (2026)**
+# 🛠️ **Roadmap (2026)**
 
 - **Stability improvements:** Continued refinement of core systems and event handling  
 - **Theme expansion:** Additional themes and improved customization options  
@@ -168,25 +138,36 @@ macOS and Linux builds are planned and will be added once cross‑platform testi
 
 ---
 
+### **Recent Changes**
+
+- Fixed update pipeline issue introduced in 2.2.2  
+- Marked SnapDock as **Stable** and transitioned to a Stable / Pre‑release channel system  
+
+---
+
 ## **Contribute**
 
-SnapDock is an active, evolving project — if you have ideas, improvements, or expertise to share, you’re welcome to jump in.
+SnapDock is an open, evolving project.  
+If you’d like to improve something, fix a bug, or explore an idea, you’re welcome here.
 
 - **Pull Requests:** Features, fixes, refactors  
-- **Issues:** Bug reports, suggestions, feedback  
+- **Issues:** Bugs, suggestions, questions  
+
+Thanks for taking the time to look around.
 
 ---
 
 ## **License**
 
-MIT License — free to use, modify, and distribute.  
-Please keep this notice.
+MIT License — free to use, modify, and share.  
+Please keep the original notice.
 
 ---
 
 ## **Explore More**
 
-See what else I'm building at:  
+If you’re curious about the other tools I’m building:  
 https://zford.dev
 
 ---
+
