@@ -1,8 +1,8 @@
 {
   "name": "snapdock",
   "version": "2.2.5",
-  "buildStage": "RC",
-  "releaseDate": "2026-01-15",
+  "buildStage": "Stable",
+  "releaseDate": "2026-01-13",
   "description": "SnapDock — lightweight markdown editor with file tree, recent files, and dynamic preview.",
   "author": "ZetoLabs",
   "private": true,
@@ -11,7 +11,7 @@
     "start": "electron .",
     "bundle": "node build.js",
     "pack": "electron-packager . SnapDock --platform=win32 --arch=x64 --out=dist --icon=assets/icon.ico",
-    "build": "npm run bundle && electron-builder --publish=never",
+    "build": "npm run bundle && electron-builder",
     "lint": "echo \"Add ESLint later\""
   },
   "dependencies": {
