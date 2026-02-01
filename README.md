@@ -102,7 +102,7 @@ SnapDock is available as a full desktop application.
 
 Download the latest Windows installer:
 
-**`https://github.com/ZFordDev/SnapDock/releases` [(github.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fgithub.com%2FZFordDev%2FSnapDock%2Freleases")**
+**`https://github.com/ZFordDev/SnapDock/releases` [(github.com)](https://www.bing.com/search?q="https%3A%2F%2Fgithub.com%2FZFordDev%2FSnapDock%2Freleases")**
 
 ---
 
